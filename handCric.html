@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Hand cricket</title>
+</head>
+<script>
+	var bowlCheck=0;
+	var batCheck=-1;
+	var firstInnings=0;
+	var secondInnings=-1;
+	var firstInningsTeam=0;
+	var secondInningsTeam=0;
+	var flag=0;
+	var teamCount=0;
+	var firstInnCheck=0;
+	var firstInnTot=0;
+	var secondInnTot=0;
+	var secondInnCheck=0;
+	var check=false;
+	var ballCount=0;
+	var out=2;
+	var images=["images/hands1.jpg","images/hands2.jpg","images/hands3.jpg","images/hands4.jpg","images/hands5.jpg"];
+	function getTeam()
+	{
+		teamCount=prompt("Please enter the team members count for each team");
+		firstInningsTeam=new Array(teamCount);
+		console.log(firstInningsTeam[1]);
+		secondInningsTeam=new Array(teamCount);
+		console.log(secondInningsTeam[1]);
+	}
+ function batRun(event)
+ {
+	var key = event.keyCode;
+	if(key==37)
+	{
+	 if(bowlCheck!=0)
+		 {
+			batCheck=Math.floor((Math.random()*5)+1);
+			
+			alert("batting run "+batCheck);
+			document.getElementById("batSide").src=images[batCheck-1];
+			/*if(out==19)
+			{
+				document.getElementById("batSide").src=images[batCheck-1];
+				alert("batsman out");
+				out=2;
+			}*/
+			console.log(batCheck+" "+bowlCheck+" "+firstInnings);
+			if(secondInnings>firstInnings)
+					{
+					alert("Chasing man won");
+				 	document.getElementById("batSide").innerHTML="Over";
+				 	document.getElementById("bowlSide").innerHTML="Over";
+					}
+			if(((batCheck==bowlCheck)&&(flag==0))||((check==true)&&(flag==0)))
+			{
+				console.log("satisk"+batCheck+" "+bowlCheck+" "+secondInnings);
+					if(firstInnCheck<(teamCount))
+					{
+						firstInningsTeam[firstInnCheck]=firstInnings-firstInnTot;
+						console.log(firstInningsTeam[firstInnCheck]);
+						//firstInnings=0;
+						document.getElementById("firstTeam").innerHTML=firstInnings-firstInnTot;
+						firstInnTot= firstInnTot +firstInningsTeam[firstInnCheck];
+						//out=19;
+						alert("batman out");
+						console.log(firstInnTot);
+						document.getElementById("batSide").innerHTML=(firstInnCheck+1)+"Wicket losed";
+						 document.getElementById("bowlSide").innerHTML="Wickets taken";
+						console.log("Teamcount "+firstInnCheck);
+						if(firstInnCheck==(teamCount)-1)
+							{
+								out=19;
+							check=true;
+							//document.getElementById("batSide").src=images[batCheck-1];
+							alert("want to chase "+firstInnTot);
+							document.getElementById("batSide").innerHTML="Dehydration Break";
+							document.getElementById("bowlSide").innerHTML="Dehydration Break";
+						/* var temp=document.getElementById("bowl").id;
+						document.getElementById("bowl").id=document.getElementById("bat").id;
+						document.getElementById("bat").id=temp;
+						temp=document.getElementById("bowl").innerHTML;
+						document.getElementById("bowl").innerHTML=document.getElementById("bat").innerHTML;
+						document.getElementById("bat").innerHTML=temp;
+						var temp=document.getElementById("bowl").onclick;
+						document.getElementById("bowl").onclick=document.getElementById("bat").onclick;
+						document.getElementById("bat").onclick=temp;*/
+							document.getElementById("firstTeam").innerHTML=firstInningsTeam;
+							}
+							batCheck=0;
+						firstInnCheck=firstInnCheck+1;
+					}
+					else if(flag==0)
+					{			
+						bowlCheck=0;				
+						ballCount=0;
+						flag=1;
+						secondInnings=0;
+						secondInnCheck=0;
+						/*document.getElementById("batSide").innerHTML="Break";
+						document.getElementById("bowlSide").innerHTML="Break";*/
+						console.log("second Innings");
+					}
+			}
+			else if((flag==1)&&((secondInnTot>firstInnTot)||(secondInnings>firstInnings)))
+			{
+				
+			}
+			else if((flag==1)&&(secondInnTot==firstInnTot))
+			{
+				alert("Match draw");
+			
+			 	document.getElementById("batSide").innerHTML="Over";
+			 	document.getElementById("bowlSide").innerHTML="Over";
+			}
+		/*	else if((flag==1)&&((secondInnTot<firstInnTot)&&(secondInnCheck>=(teamCount))))
+			{
+				
+			}*/
+			else if(((flag==1)&&(secondInnTot<firstInnTot)&&(secondInnings<firstInnTot)&&(batCheck==bowlCheck)))
+			{
+				console.log("secondInnings");
+				console.log(batCheck+" "+bowlCheck+" "+secondInnings);
+				if(secondInnings>firstInnings)
+					{
+					alert("Chasing man won");
+				 	document.getElementById("batSide").innerHTML="Over";
+				 	document.getElementById("bowlSide").innerHTML="Over";
+					}
+				if(secondInnCheck<(teamCount))
+				{
+					console.log("    secondInnings="+secondInnings);
+					secondInningsTeam[secondInnCheck]=secondInnings-secondInnTot;
+					//secondInnings=0;
+					document.getElementById("secondTeam").innerHTML=secondInnings-secondInnTot;
+					console.log("Second Teamcount "+secondInnCheck+" ");
+					alert("batsman out");
+					document.getElementById("batSide").innerHTML=(secondInnCheck+1)+"Wicket losed";
+						 document.getElementById("bowlSide").innerHTML="Wickets taken";
+					secondInnTot=secondInnTot+secondInningsTeam[secondInnCheck];
+					console.log("second "+secondInnTot+" batsman "+ " runs "+secondInningsTeam[secondInnCheck]);
+					if(secondInnCheck==(teamCount-1))
+					{
+					alert("Defender man won");
+					 document.getElementById("batSide").innerHTML="Over";
+				 	document.getElementById("bowlSide").innerHTML="Over";
+					}
+					secondInnCheck=secondInnCheck+1;
+					batCheck=0;
+				}
+			}
+			
+			else
+			{
+				console.log("else");
+				if(flag==0)
+					{
+					ballCount=ballCount+1;
+			 		document.getElementById("bowlSide").innerHTML=ballCount+"ball";
+					firstInnings=firstInnings+batCheck;
+					document.getElementById("firstScore").innerHTML=firstInnings;
+					//document.getElementById("bowlSide").innerHTML="Your turn";
+					}
+				if(flag==1)
+					{
+					secondInnings=secondInnings+batCheck;
+					console.log(batCheck+" "+bowlCheck+" "+secondInnings);
+					document.getElementById("secondScore").innerHTML=secondInnings;
+					console.log("secon innings condition");
+					}
+			}
+		 }
+	 else
+		 {
+		 document.getElementById("batSide").innerHTML="Ball is not bowled";
+		 }
+	}
+ }
+ function bowlRun(event)
+{
+	var key = event.keyCode;
+	if(key==39)
+	{
+		//console.log("hello");
+	 bowlCheck=Math.floor((Math.random()*4)+1);
+	 console.log(bowlCheck);
+	// alert(images[bowlCheck-1]);
+	 document.getElementById("bowlSide").src=images[bowlCheck-1];
+	 alert("bowling "+bowlCheck);
+	}
+	// document.getElementById("batSide").innerHTML="Your turn";
+ }
+ </script>
+ <style>
+ 	#batSide
+ 	{
+	 height:75px;
+	 width:75px;
+ 	}
+ 	#bowlSide
+ 	{
+	 height:75px;
+	 width:75px;
+ 	}
+ </style>
+<body onload="getTeam()" onkeydown="batRun(event)" onkeyup="bowlRun(event)">
+	<h1>Hand Cricket</h1>
+	<br>
+	First Batsman score: <h2 id="firstScore"></h2>
+	Second Batsman score: <h2 id="secondScore"></h2>
+	<table>
+	<tr>
+		<th>Batting Side</th>
+	<th>Bowling Side</th>
+	</tr>
+	<tr>
+			<td><image  id="batSide"></image></td>
+			<td><image  id="bowlSide"></image></td>
+	</tr>
+	</table>
+	<!-- <image id="bowlSide" alt="bowl"></image>
+	<image  id="batSide" alt="bat"></image> -->
+	<!--<images src="" id="batSide" src="hands1.jpg"></images>
+	<button id="bat"    onkeydown="batRun(event)">BAT</button>
+	<button id="bowl"  onkeypress="bowlRun(event)">BOWL</button>-->
+	<p id="firstTeam"></p>
+	<p id="secondTeam"></p>
+</body>
+</html>
