@@ -20,6 +20,7 @@
 	var check=false;
 	var ballCount=0;
 	var out=2;
+	var ballCount=0;
 	var images=["images/hands1.jpg","images/hands2.jpg","images/hands3.jpg","images/hands4.jpg","images/hands5.jpg"];
 	function getTeam()
 	{
@@ -38,7 +39,7 @@
 		 {
 			batCheck=Math.floor((Math.random()*5)+1);
 			
-			alert("batting run "+batCheck);
+			//alert("batting run "+batCheck);
 			document.getElementById("batSide").src=images[batCheck-1];
 			/*if(out==19)
 			{
@@ -64,11 +65,24 @@
 						document.getElementById("firstTeam").innerHTML=firstInnings-firstInnTot;
 						firstInnTot= firstInnTot +firstInningsTeam[firstInnCheck];
 						//out=19;
-						alert("batman out");
+						console.log("batman out");
+						var bt=document.getElementById("scoreCard1");
+						alert(bt);
+						var rw=bt.insertRow(-1);
+						var ce1=rw.insertCell(0);
+						var ce2=rw.insertCell(1);
+						var ce3=rw.insertCell(2);
+						ce1.innerHTML=(firstInnCheck+1);
+						console.log("ce1"+ce1);
+						console.log("ce2"+ce2);
+						console.log("ce3"+ce3);
+						ce2.innerHTML=firstInningsTeam[firstInnCheck];
+						ce3.innerHTML=ballCount;
 						console.log(firstInnTot);
 						document.getElementById("batSide").innerHTML=(firstInnCheck+1)+"Wicket losed";
 						 document.getElementById("bowlSide").innerHTML="Wickets taken";
 						console.log("Teamcount "+firstInnCheck);
+						ballCount=0;
 						if(firstInnCheck==(teamCount)-1)
 							{
 								out=19;
@@ -107,7 +121,7 @@
 			{
 				
 			}
-			else if((flag==1)&&(secondInnTot==firstInnTot))
+			else if((flag==1)&&(secondInnings==firstInnings))
 			{
 				alert("Match draw");
 			
@@ -140,6 +154,19 @@
 						 document.getElementById("bowlSide").innerHTML="Wickets taken";
 					secondInnTot=secondInnTot+secondInningsTeam[secondInnCheck];
 					console.log("second "+secondInnTot+" batsman "+ " runs "+secondInningsTeam[secondInnCheck]);
+					var bt=document.getElementById("scoreCard2");
+					alert(bt);
+					var rw=bt.insertRow(-1);
+					var ce1=rw.insertCell(0);
+					var ce2=rw.insertCell(1);
+					var ce3=rw.insertCell(2);
+					ce1.innerHTML=(secondInnCheck+1);
+					console.log("ce1"+ce1);
+					console.log("ce2"+ce2);
+					console.log("ce3"+ce3);
+					ce2.innerHTML=firstInningsTeam[secondInnCheck];
+					ce3.innerHTML=ballCount;
+					ballCount=0;
 					if(secondInnCheck==(teamCount-1))
 					{
 					alert("Defender man won");
@@ -156,7 +183,7 @@
 				console.log("else");
 				if(flag==0)
 					{
-					ballCount=ballCount+1;
+					//ballCount=ballCount+1;
 			 		document.getElementById("bowlSide").innerHTML=ballCount+"ball";
 					firstInnings=firstInnings+batCheck;
 					document.getElementById("firstScore").innerHTML=firstInnings;
@@ -187,7 +214,9 @@
 	 console.log(bowlCheck);
 	// alert(images[bowlCheck-1]);
 	 document.getElementById("bowlSide").src=images[bowlCheck-1];
-	 alert("bowling "+bowlCheck);
+	 ballCount=ballCount+1;
+	// alert(ballCount);
+	// alert("bowling "+bowlCheck);
 	}
 	// document.getElementById("batSide").innerHTML="Your turn";
  }
@@ -203,6 +232,14 @@
 	 height:75px;
 	 width:75px;
  	}
+ 	#scoreCard1
+ 	{
+ 	float:left;
+ 	}
+ 	#scoreCard2
+ 	{
+ 	float:right;
+ 	}
  </style>
 <body onload="getTeam()" onkeydown="batRun(event)" onkeyup="bowlRun(event)">
 	<h1>Hand Cricket</h1>
@@ -215,8 +252,8 @@
 	<th>Bowling Side</th>
 	</tr>
 	<tr>
-			<td><image  id="batSide"></image></td>
-			<td><image  id="bowlSide"></image></td>
+			<td><img  id="batSide"></img></td>
+			<td><img  id="bowlSide"></img></td>
 	</tr>
 	</table>
 	<!-- <image id="bowlSide" alt="bowl"></image>
@@ -226,5 +263,18 @@
 	<button id="bowl"  onkeypress="bowlRun(event)">BOWL</button>-->
 	<p id="firstTeam"></p>
 	<p id="secondTeam"></p>
+	<table id="scoreCard1">
+	<tr>
+		<th>Batsman Number</th>
+		<th>Run</th>
+		<th>Balls faced</th>
+	</table>
+	<table id="scoreCard2">
+		<tr>
+			<th>Batsman Number</th>
+			<th>Run<th>
+			<th>Balls faced</th>
+			</tr>
+	</table>
 </body>
 </html>
