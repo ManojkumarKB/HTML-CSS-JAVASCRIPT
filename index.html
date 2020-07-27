@@ -37,10 +37,10 @@
         document.getElementById("SecondInngWicketsTaken").innerHTML=0;
     }
     
- function batRun(event)
+ function batRun()
  {
-	var key = event.keyCode;
-	if(key==37)
+//	var key = event.keyCode;
+	//if(key==37)
 	{
 	 if(bowlCheck!=0)
 		 {
@@ -75,14 +75,14 @@
 					if(firstInnCheck<(teamCount))
 					{
 						firstInningsTeam[firstInnCheck]=firstInnings-firstInnTot;
-						console.log(firstInningsTeam[firstInnCheck]);
+						console.log("ss"+firstInningsTeam[firstInnCheck]);
 						//firstInnings=0;
 						document.getElementById("firstTeam").innerHTML=firstInnings-firstInnTot;
 						firstInnTot= firstInnTot +firstInningsTeam[firstInnCheck];
 						//out=19;
 						console.log("batman out");
 						var bt=document.getElementById("scoreCard1");
-						alert(bt);
+						alert((firstInnCheck+1)+" out with "+firstInningsTeam[firstInnCheck]);
 						var rw=bt.insertRow(-1);
 						var ce1=rw.insertCell(0);
 						var ce2=rw.insertCell(1);
@@ -220,10 +220,10 @@
 		 }
 	}
  }
- function bowlRun(event)
+ function bowlRun()
 {
-	var key = event.keyCode;
-	if(key==39)
+	//var key = event.keyCode;
+	//if(key==39)
 	{
 		//console.log("hello");
 	 bowlCheck=Math.floor((Math.random()*4)+1);
@@ -262,8 +262,11 @@
 	<br>
 	First Innings score: <table><th><div style="float:none"><h2><div id="firstScore" ></div></th><th><h2>/</h2></th><th><h2><div id="FirstInngWicketsTaken"></h2></div></div></th></table>
 	Second Innings score: <table><th><h2><div id="secondScore"></div></h2></th><th><h2>/</h2></th><th><h2><div id="SecondInngWicketsTaken"> </div></h2></th></table>
-	<table>
-	<tr>
+    <table>
+        <th>
+    <table>
+    
+        <tr>
 		<th>Batting Side</th>
 	<th>Bowling Side</th>
 	</tr>
@@ -271,7 +274,19 @@
 			<td><img  id="batSide"></img></td>
 			<td><img  id="bowlSide"></img></td>
 	</tr>
-	</table>
+    </table>
+    </th>
+    <th>
+        <table>
+          <th>
+             <div id="batting" onclick="batRun()"><img src="images/batting.jpg"></div>
+          </th>  
+          <th>
+              <div id="bowling" onclick="bowlRun()"><img src="images/bowling.jpg"></div>
+          </th>
+        </table>
+    </th>
+    </table>
 	<!-- <image id="bowlSide" alt="bowl"></image>
 	<image  id="batSide" alt="bat"></image> -->
 	<!--<images src="" id="batSide" src="hands1.jpg"></images>
